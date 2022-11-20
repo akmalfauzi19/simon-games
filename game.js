@@ -20,6 +20,40 @@ $(".btn").click(function () {
     }
 
 });
+// mobile
+$(document).on("tap", function (e) {
+    if (timer && !started) {
+        timer = false;
+        var score = $('#score');
+        if (score.length > 0) {
+            score.remove();
+        }
+
+        var titlelvl = $('#level-title');
+        titlelvl.text('Starting ...');
+        titlelvl.after('<h1 id="timer">5</h1>');
+
+        var counter = 5;
+
+        var interval = setInterval(function () {
+            counter--;
+            $('#timer').text(counter);
+            // Display 'counter'.
+            if (counter == 0) {
+                // stop counter
+                clearInterval(interval);
+                level++
+                $('#level-title').text('Level ' + level);
+                $('#timer').remove();
+
+                setTimeout(function () {
+                    nextSequence();
+                    started = true;
+                }, 1000)
+            }
+        }, 1000);
+    }
+});
 
 $(document).keypress(function (e) {
     var btn = e.key || e.which || e.keyCode || 0;
@@ -54,8 +88,6 @@ $(document).keypress(function (e) {
                 }, 1000)
             }
         }, 1000);
-
-
     }
 })
 
