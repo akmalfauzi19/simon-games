@@ -6,6 +6,7 @@ var userClickedPattern = [];
 
 var started = false;
 var level = 0;
+var timer = true;
 
 $(".btn").click(function () {
     if (started) {
@@ -23,7 +24,8 @@ $(".btn").click(function () {
 $(document).keypress(function (e) {
     var btn = e.key || e.which || e.keyCode || 0;
 
-    if (btn && !started) {
+    if (timer && btn && !started) {
+        timer = false;
         var score = $('#score');
         if (score.length > 0) {
             score.remove();
@@ -34,6 +36,7 @@ $(document).keypress(function (e) {
         titlelvl.after('<h1 id="timer">5</h1>');
 
         var counter = 5;
+
         var interval = setInterval(function () {
             counter--;
             $('#timer').text(counter);
@@ -51,6 +54,8 @@ $(document).keypress(function (e) {
                 }, 1000)
             }
         }, 1000);
+
+
     }
 })
 
@@ -112,4 +117,5 @@ function startOver() {
     level = 0;
     gamePattern = [];
     started = false;
+    timer = true;
 }
